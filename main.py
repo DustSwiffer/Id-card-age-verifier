@@ -1,12 +1,16 @@
 import DetectFace
 import AgeFinder
 
-idCardPath = "input/56.jpg"
+idCardPath = "input/my-Id.jpg"
+videoFramePath = "input/me.jpg" # static image for testing
 
-DetectFace.findFace(idCardPath)
-age = AgeFinder.GetAgeFromIdCard(idCardPath)
+faces = DetectFace.findFacesOnIdCard(idCardPath)
+face = DetectFace.findFaceInVideoFrame(idCardPath)
 
-if(age >= 24):  # For Testing we have set the age of 24 (to test the true or face method )
-    print("person has the age of %s and is allowed to use socialmedia" % (age))
-else:
-    print("person has the age of %s and  is not allowed to use socialmedia" % (age))
+if(face in faces):
+    age = AgeFinder.GetAgeFromIdCard(idCardPath)
+
+    if(age >= 24):  # For Testing we have set the age of 24 (to test the true or face method )
+        print("person has the age of %s and is allowed to use socialmedia" % (age))
+    else:
+        print("person has the age of %s and  is not allowed to use socialmedia" % (age))

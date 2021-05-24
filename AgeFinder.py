@@ -17,9 +17,9 @@ def GetAgeFromIdCard(path):
 
     dateOfBirthLocation = 0
     for line in stringList:
-        count += 1
         if("date of birth" in line):
             dateOfBirthLocation = count + 1
+        count += 1
 
     dateOfBirthString = stringList[dateOfBirthLocation]
     dateOfBirthStringSliced = list(dateOfBirthString.split(" "))
