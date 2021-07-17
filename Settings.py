@@ -2,6 +2,7 @@ import json
 
 
 class Settings:
+
     TesseractPath = ""
     AgeLimit = 13
     Gamma = 0.555
@@ -12,6 +13,6 @@ class Settings:
 
         data = json.loads(content)
 
-        self.TesseractPath = str(data['tessarct_path'])
+        self.TesseractPath = str(data['tesseract_path'])
         self.AgeLimit = int(data['age_limit'])
         self.Gamma = float(data['gamma'])

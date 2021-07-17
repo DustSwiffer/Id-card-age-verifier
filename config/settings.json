@@ -1,5 +1,5 @@
 {
-  "tessarct_path": "D:/engines/Tesseract-ocr/tesseract.exe",
+  "tesseract_path": "D:/engines/Tesseract-ocr/tesseract.exe",
   "age_limit": 13,
   "gamma": 0.469
 }

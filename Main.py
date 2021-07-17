@@ -18,6 +18,6 @@ if detectionRate >= 0.6:
     if age >= settings.AgeLimit:
         print("person has the age of %s and is allowed to use social media" % age)
     else:
-        print("person has the age of %s and  is not allowed to use social media" % age)
+        print("Person has the age of %s and  is not allowed to use social media" % age)
 else:
     print("The ID card can't be matched with the person who is within the selfie")
