@@ -4,13 +4,13 @@ import IdCardReader
 
 settings = Settings.Settings()
 
-idCardPath = ""
-videoFramePath = ""
-
-faces = DetectFace.findFacesOnIdCard(idCardPath)
-face = DetectFace.findFaceInVideoFrame(idCardPath)
+idCardPath = "input/ander id.jpeg"
+videoFramePath = "input/me-new.jpg"
 
 detectionRate = DetectFace.Find(videoFramePath, idCardPath)
+
+confidenceInPercent = round(detectionRate * 100, 2)
+print("Confidence of face recognition in percent: " + str(confidenceInPercent))
 
 if detectionRate >= 0.6:
     age = IdCardReader.GetAgeFromIdCard(idCardPath)

@@ -4,33 +4,10 @@ import numpy as np
 import math
 
 settings = Settings.Settings()
-
-
-def findFacesOnIdCard(path):
-    img = cv2.imread(path)
-    face_cascade = cv2.CascadeClassifier('config/face_detector.xml')
-    faces = face_cascade.detectMultiScale(img, 1.1, 4)
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-    return faces
-
-
-def findFaceInVideoFrame(path):
-    img = cv2.imread(path)
-    face_cascade = cv2.CascadeClassifier('config/face_detector.xml')
-    faces = face_cascade.detectMultiScale(img, 1.1, 4)
-
-    for (x, y, w, h) in faces:
-        cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
-
-    return faces[0]
+face_cascade = cv2.CascadeClassifier('config/face_detector.xml')
 
 
 def Find(videoFramePath, idCardPath):
-    face_cascade = cv2.CascadeClassifier('config/face_detector.xml')
-
     videoFrame = cv2.imread(videoFramePath)
     idCard = cv2.imread(idCardPath)
 
@@ -51,24 +28,23 @@ def Find(videoFramePath, idCardPath):
 
         count = 0
 
+        scores = []
         for (x, y, w, h) in facesInIdCard:
             count += 1
             roiGrayIdCard = grayIdCard[y:y + h, x:x + w]
 
             score = cv2.matchTemplate(roiGrayIdCard, resizedVideoFrameRoI, cv2.TM_CCOEFF_NORMED).max()
-            confidenceInPercent = round(score * 100, 2)
-            print("Confidence of face recognition in percent: " + str(confidenceInPercent))
+            scores.append(score)
 
-            return score
+        return max(scores)
 
 
 def IncreaseBrightnessOfSelfie(videoFramePath):
-
     hsv = cv2.cvtColor(videoFramePath, cv2.COLOR_BGR2HSV)
 
     hue, sat, val = cv2.split(hsv)
 
-    mid = float(settings.TesseractPath)
+    mid = settings.Gamma
     mean = np.mean(val)
     gamma = math.log(mid * 255) / math.log(mean)
 
